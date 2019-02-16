@@ -46,7 +46,11 @@
 
         <article ng-if="loggedIn == true">
 
+            <button type="button" ng-click="logout();">Logout</button>
+            <a href="#" ng-click="createTable();"><i class="fas fa-plus"></i></a>
+
             <figure>
+
 
 
             </figure>
