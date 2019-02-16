@@ -13,16 +13,16 @@ class Login extends CI_Controller {
 	// this function will check whether the user still has a session
 	public function checkLogin()
 	{
-		// if the session still exists, send back true
+		// if the session still exists, sends back the session data
 		if(isset($_SESSION['user']))
 		{
-			echo true;
+			echo json_encode($_SESSION['user']);
 		}
-		// if the session doesn't exist, unset it for savety precautions and send back false
+		// if the session doesn't exist, unset it for savety precautions and sends back false as string
 		else
 		{
 			unset($_SESSION['user']);
-			echo false;
+			echo "false";
 		}
 	}
 
@@ -62,9 +62,9 @@ class Login extends CI_Controller {
 				// if the inputted password is equal to the $encryptedPass
 				if($getUser['password'] == $encryptedPass)
 				{
-					// create session and send back true
+					// create session and sends back the session data
 					$_SESSION['user'] = $getUser;
-					echo true;
+					echo json_encode($_SESSION['user']);
 				}
 				// if the inputted password doesn't match with the $encryptedPass
 				else
@@ -110,9 +110,9 @@ class Login extends CI_Controller {
 				// sends $createUser['id'] and $encryptedPass to setPassword function in Login_model (model)
 				$this->login->setPassword($createUser['id'], $encryptedPass);
 
-				// creates session with the data from $createUser and sends back true
+				// creates session with the data from $createUser and sends back the session data
 				$_SESSION['user'] = $createUser;
-				echo true;
+				echo json_encode($_SESSION['user']);
 			}
 			// if the $createUser is not set
 			else

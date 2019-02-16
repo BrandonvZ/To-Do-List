@@ -8,6 +8,8 @@ app.controller('LoginController', function($scope, $http) {
     $scope.login = {};
     $scope.register = {};
 
+    $scope.user = {};
+
     // this will check if the user still has a session
     var req = {
         method : "GET",
@@ -18,7 +20,8 @@ app.controller('LoginController', function($scope, $http) {
     }
     $http(req).then(function successCallBack(response){
         // if the user still has a session, enter dashboard page. If not, enter login page
-        if(response.data == true){
+        if(response.data != "false"){
+            $scope.user = response.data;
             $scope.loggedIn = true;
             $scope.registerIn = false;
             $scope.getLists();
@@ -44,7 +47,8 @@ app.controller('LoginController', function($scope, $http) {
         }
         $http(req).then(function successCallBack(response){
             // if the username and password match, enter dashboard page. If not, stay on login page
-            if(response.data == true){
+            if(response.data != "false"){
+                $scope.user = response.data;
                 $scope.loggedIn = true;
                 $scope.getLists();
                 document.title = "To-Do-List | Dashboard";
@@ -90,7 +94,8 @@ app.controller('LoginController', function($scope, $http) {
         }
         $http(req).then(function successCallBack(response){
             // if the user has been created, enter dashboard page. If not, stay on register page
-            if(response.data == true){
+            if(response.data != "false"){
+                $scope.user = response.data;
                 $scope.loggedIn = true;
                 $scope.registerIn = false;
                 $scope.getLists();
