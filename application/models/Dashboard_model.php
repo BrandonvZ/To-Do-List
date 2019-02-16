@@ -30,6 +30,19 @@ class Dashboard_model extends CI_Model {
     {
         $this->db->where('id', $id);
         $this->db->delete('lists');
+
+        $this->db->where('list_id', $id);
+        $this->db->delete('items');
+    }
+
+    public function getItems($list_id)
+    {
+        $this->db->select('*');
+        $this->db->from('items');
+        $this->db->where('list_id', $list_id);
+
+        $query = $this->db->get();
+        return $query->result();
     }
 
     public function updateListTitle($id, $value)
@@ -37,5 +50,40 @@ class Dashboard_model extends CI_Model {
         $this->db->set('name', $value);
         $this->db->where('id', $id);
         $this->db->update('lists');
+    }
+
+    public function acceptListItem($id, $value)
+    {
+        $this->db->set('done', $value);
+        $this->db->where('id', $id);
+        $this->db->update('items');
+    }
+
+    public function createListItem($id)
+    {
+        $data = array(
+            'list_id' => $id,
+            'name' => 'Item Name',
+            'done' => 0
+        );
+        $this->db->insert('items', $data);
+
+        $this->db->select_max('id');
+        $this->db->limit(1);
+        $query = $this->db->get('items');
+        return $query->row();
+    }
+
+    public function updateListItem($id, $value)
+    {
+        $this->db->set('name', $value);
+        $this->db->where('id', $id);
+        $this->db->update('items');
+    }
+
+    public function deleteListItem($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('items');
     }
 }

@@ -54,14 +54,22 @@
                     <li class="dashboard-list-upper-content">
                         <a href="#" class="dashboard-delete-list-btn" ng-click="deleteList(x.id);"><i class="fas fa-minus"></i></a>
                         <a href="#" class="dashboard-add-list-btn" ng-click="createList();"><i class="fas fa-plus"></i></a>
-                        <p class="dashboard-list-title" ng-blur="updateListTitle(x, $event);" ng-bind="x.name" contenteditable="true"></p>
+                        <p class="dashboard-list-title" ng-blur="updateListTitle(x, $event);" onkeydown="if(event.keyCode==13){ $(this).blur(); return false;}" ng-bind="x.name" contenteditable="true"></p>
+                    </li>
+
+                    <li>
+                        <button></button>
+                        <button></button>
                     </li>
 
                     <li class="dashboard-list-lower-content" ng-repeat="q in x.content">
-                        <input type="checkbox" ng-click="acceptListItem(q, $event);" ng-if="q.completed == 1" checked>
-                        <input type="checkbox" ng-click="acceptListItem(q, $event);" ng-if="q.completed == 0">
-                        <p class="dashboard-list-item" ng-blur="updateListItem(q, $event)" contenteditable="true" ng-bind="q.name"></p>
+                        <input class="dashboard-list-checkbox" type="checkbox" ng-click="acceptListItem(q, $event);" ng-if="q.done == 1" checked>
+                        <input class="dashboard-list-checkbox" type="checkbox" ng-click="acceptListItem(q, $event);" ng-if="q.done == 0">
+                        <p class="dashboard-list-item" ng-class="{'dashboard-list-item-done' : q.done == 1}" ng-blur="updateListItem(q, $event)" onkeydown="if(event.keyCode==13){ $(this).blur(); return false;}" contenteditable="true" ng-bind="q.name"></p>
+                        <a href="#" class="dashboard-delete-item-btn" ng-click="deleteListItem(q.id, q.list_id);"><i class="fas fa-minus"></i></a>
                     </li>
+
+                    <li class="dashboard-add-item-btn" ng-click="createListItem(x.id)" contenteditable="false"><i class="fas fa-plus"></i></li>
                 </ul>
             </figure>
 

@@ -78,4 +78,142 @@ app.controller('DashboardController', function($scope, $http) {
             }
         }, function errorCallback(response){});
     }
+
+    $scope.getItems = function(){
+        var req = {
+            method : "GET",
+            url: baseUrl + "dashboard/getItems",
+            headers : {
+                "Content-Type" : undefined
+            }
+        }
+        $http(req).then(function successCallBack(response){
+            $scope.lists = response.data;
+        }, function errorCallback(response){});
+    }
+
+    $scope.acceptListItem = function(data, elem){
+        var currentItem = elem.currentTarget;
+        var currentItems = currentItem.parentNode.getElementsByTagName('p');
+
+        if(data.done == 1){
+            data.done = 0;
+            for(var i = 0; i < currentItems.length; i++){
+                currentItems[i].classList.remove("dashboard-list-item-done");
+            }
+        } else {
+            data.done = 1;
+            for(var i = 0; i < currentItems.length; i++){
+                currentItems[i].classList.add("dashboard-list-item-done");
+            }
+        }
+
+        var req = {
+            method: "POST",
+            url: baseUrl + "dashboard/acceptListItem",
+            headers: {
+                "Content-Type":undefined
+            },
+            data: {
+                'id' : data.id,
+                'value' : data.done
+            }
+        }
+        $http(req).then(function successCallBack(response){}, function errorCallback(response){});
+    }
+
+    $scope.createListItem = function(listId){
+        if(listId['id'] != undefined){
+            listId = listId.id;
+        }
+
+        var req = {
+            method: "POST",
+            url: baseUrl + "dashboard/createListItem",
+            headers: {
+                "Content-Type":undefined
+            },
+            data: {
+                'list_id' : listId
+            }
+        }
+        $http(req).then(function successCallBack(response){
+            for(var i = 0; i < $scope.lists.length; i++){
+                if($scope.lists[i].id['id'] != undefined){
+                    $scope.lists[i].id = $scope.lists.id.id;
+                }
+                if($scope.lists[i].id == listId){
+                    if($scope.lists[i].content == undefined){
+                        $scope.lists[i].content = [];
+                    }
+
+                    var item = {
+                        'id' : response.data.id,
+                        'name' : 'Item Name',
+                        'done' : 0,
+                        'list_id' : listId
+                    };
+                    $scope.lists[i].content.push(item);
+                }
+            }
+        }, function errorCallback(response){});
+    }
+
+    $scope.updateListItem = function(data, elem){
+        var newTitle = elem.currentTarget.innerHTML;
+
+        if(data['id'] != undefined){
+            data = data.id
+        }
+
+        var req = {
+            method: "POST",
+            url: baseUrl + "dashboard/updateListItem",
+            headers: {
+                "Content-Type":undefined
+            },
+            data: {
+                'id' : data,
+                'value' : newTitle
+            }
+        }
+        $http(req).then(function successCallBack(response){
+            for(var i = 0; i < $scope.lists.length; i++){
+                var list = $scope.lists[i];
+                if(list.id == data.list_id){
+                    for(var q = 0; q < list.content.length; q++){
+                        var content = list.content[q];
+                        if(content.id == data.id){
+                            content.name = newTitle;
+                        }
+                    }
+                }
+            }
+        }, function errorCallback(response){});
+    }
+
+    $scope.deleteListItem = function(id, list_id){
+        var req = {
+            method: "POST",
+            url: baseUrl + "dashboard/deleteListItem",
+            headers: {
+                "Content-Type":undefined
+            },
+            data: {
+                'id' : id,
+            }
+        }
+        $http(req).then(function successCallBack(response){
+            for(var i = 0; i < $scope.lists.length; i++){
+                var list = $scope.lists[i];
+                if(list.id == list_id){
+                    for(var q = 0; q < list.content.length; q++){
+                        if(list.content[q].id == id){
+                            list.content.splice(q, 1);
+                        }
+                    }
+                }
+            }
+        }, function errorCallback(response){});
+    }
 });

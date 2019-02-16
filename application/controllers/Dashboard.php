@@ -19,7 +19,14 @@ class Dashboard extends CI_Controller {
 
 	public function getLists()
 	{
-		echo json_encode($this->dashboard->getLists($_SESSION['user']['id']));
+		$lists = (array)$this->dashboard->getLists($_SESSION['user']['id']);
+		for($i = 0; $i < count($lists); $i++)
+		{
+			$list = (array)$lists[$i];
+			$list['content'] = $this->dashboard->getItems($list['id']);
+			$lists[$i] = $list;
+		}
+		echo json_encode($lists);
 	}
 
 	public function createList()
@@ -30,15 +37,54 @@ class Dashboard extends CI_Controller {
 	public function deleteList()
 	{
 		$data = $this->getPostData();
-		if(isset($data)){
+		if(isset($data))
+		{
 			$this->dashboard->deleteList($data['id']);
 		}
 	}
 
-	public function updateListTitle(){
+	public function updateListTitle()
+	{
 		$data = $this->getPostData();
-		if(isset($data)){
+		if(isset($data))
+		{
 			$this->dashboard->updateListTitle($data['id'], $data['value']);
+		}
+	}
+
+	public function acceptListItem()
+	{
+		$data = $this->getPostData();
+		if(isset($data))
+		{
+			$this->dashboard->acceptListItem($data['id'], $data['value']);
+		}
+	}
+
+	public function createListItem()
+	{
+		$data = $this->getPostData();
+		if(isset($data))
+		{
+			echo json_encode($this->dashboard->createListItem($data['list_id']));
+		}
+	}
+
+	public function updateListItem()
+	{
+		$data = $this->getPostData();
+		if(isset($data))
+		{
+			$this->dashboard->updateListItem($data['id'], $data['value']);
+		}
+	}
+
+	public function deleteListItem()
+	{
+		$data = $this->getPostData();
+		if(isset($data))
+		{
+			$this->dashboard->deleteListItem($data['id']);
 		}
 	}
 
