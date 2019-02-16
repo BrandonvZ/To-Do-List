@@ -29,4 +29,4 @@
 
 </head>
 
-<body ng-app="myToDo">
+<body ng-app="myToDo" ng-controller="DashboardController">

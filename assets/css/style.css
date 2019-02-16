@@ -110,3 +110,88 @@ body {
     color: #606E81;
     transform: scale(1.1);
 }
+
+/* 3. Dashboard Screen */
+
+.dashboard-list {
+    width: 250px;
+    min-height: 300px;
+    position: relative;
+    display: inline-block;
+    background-color: white;
+    border-radius: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
+    box-shadow: 0px 7px 5px 0px #000000;
+}
+
+.dashboard-list-container {
+    min-height: 50px;
+    background: #9D50BB;
+    border-bottom: 1px solid #9D50BB;
+    border-radius: 10px 10px 0 0px;
+    padding: 0 !important;
+}
+
+.dashboard-list-upper-content {
+    text-align: center;
+    font-size: 19px;
+    line-height: 43px;
+    list-style: none;
+}
+
+.dashboard-delete-list-btn {
+    position: absolute;
+    left: 15px;
+    color: #540E7A;
+    margin: 0 !important;
+    transition: transform 0.4s;
+}
+
+.dashboard-delete-list-btn:hover {
+    color: #540E7A;
+    transform: scale(1.3);
+    transform: rotate(360deg);
+}
+
+.dashboard-add-list-btn {
+    position: absolute;
+    right: 15px;
+    color: #540E7A;
+    margin: 0 !important;
+    transition: transform 0.4s;
+}
+
+.dashboard-add-list-btn:hover {
+    color: #540E7A;
+    transform: scale(1.3);
+    transform: rotate(180deg);
+}
+
+.dashboard-list-title {
+    margin: 0 !important;
+}
+
+.dashboard-logout-btn {
+    width: 150px;
+    height: 40px;
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background-size: 200% auto;
+    background-image: linear-gradient(to right, #9D50BB 0%, #854CB2 51%, #6E48AA 100%);
+    outline: 0;
+    border: 0;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 17px;
+    margin-top: 1em;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.dashboard-logout-btn:hover {
+    background-position: right center;
+    box-shadow: 0px 10px 5px 0px #000000;
+}

@@ -46,13 +46,23 @@
 
         <article ng-if="loggedIn == true">
 
-            <button type="button" ng-click="logout();">Logout</button>
-            <a href="#" ng-click="createTable();"><i class="fas fa-plus"></i></a>
+            <button class="dashboard-logout-btn" type="button" ng-click="logout();">LOG OUT</button>
+            <a ng-show="lists.length == 0" href="#" ng-click="createList();"><i class="fas fa-plus"></i></a>
 
-            <figure>
+            <figure class="dashboard-list" ng-repeat="x in lists">
+                <ul class="dashboard-list-container">
+                    <li class="dashboard-list-upper-content">
+                        <a href="#" class="dashboard-delete-list-btn" ng-click="deleteList(x.id);"><i class="fas fa-minus"></i></a>
+                        <a href="#" class="dashboard-add-list-btn" ng-click="createList();"><i class="fas fa-plus"></i></a>
+                        <p class="dashboard-list-title" ng-blur="updateListTitle(x, $event);" ng-bind="x.name" contenteditable="true"></p>
+                    </li>
 
-
-
+                    <li class="dashboard-list-lower-content" ng-repeat="q in x.content">
+                        <input type="checkbox" ng-click="acceptListItem(q, $event);" ng-if="q.completed == 1" checked>
+                        <input type="checkbox" ng-click="acceptListItem(q, $event);" ng-if="q.completed == 0">
+                        <p class="dashboard-list-item" ng-blur="updateListItem(q, $event)" contenteditable="true" ng-bind="q.name"></p>
+                    </li>
+                </ul>
             </figure>
 
         </article>

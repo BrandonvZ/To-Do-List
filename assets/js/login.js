@@ -21,6 +21,7 @@ app.controller('LoginController', function($scope, $http) {
         if(response.data == true){
             $scope.loggedIn = true;
             $scope.registerIn = false;
+            $scope.getLists();
             document.title = "To-Do-List | Dashboard";
         } else {
             $scope.loggedIn = false;
@@ -45,6 +46,7 @@ app.controller('LoginController', function($scope, $http) {
             // if the username and password match, enter dashboard page. If not, stay on login page
             if(response.data == true){
                 $scope.loggedIn = true;
+                $scope.getLists();
                 document.title = "To-Do-List | Dashboard";
             } else {
                 console.log(response.data);
@@ -91,7 +93,8 @@ app.controller('LoginController', function($scope, $http) {
             if(response.data == true){
                 $scope.loggedIn = true;
                 $scope.registerIn = false;
-                document.title = "To-Do-List | Register";
+                $scope.getLists();
+                document.title = "To-Do-List | Dashboard";
             } else {
                 console.log(response.data);
             }
