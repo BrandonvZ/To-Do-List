@@ -1,0 +1,112 @@
+/* Table of Contents
+
+    1. General CSS
+    2. Login Screen
+    3. Dashboard Screen
+    4. Media Queries
+
+*/
+
+/* 1. General CSS */
+
+html, body {
+    height: 100vh;
+}
+
+body {
+    background: #141E30;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.page-wrapper {
+    width: 100%;
+}
+
+.page-container {
+    justify-content: center;
+    flex-wrap: wrap;
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* 2. Login Screen */
+
+.login-logo {
+    width: 190px;
+    position: relative;
+    left: 45px;
+    bottom: 20px;
+    transition: all 0.5s;
+}
+
+.login-logo:hover {
+    transform: scale(1.025);
+}
+
+.login-input {
+    width: 280px;
+    background-color: transparent;
+    outline: 0;
+    border: 0;
+    border-bottom: 1px solid #606E81;
+    color: #C7CAD1;
+    padding: 0 0 5px 30px;
+    margin-left: -20px;
+    transition: border 0.3s;
+}
+
+.login-input:focus {
+    border-bottom: 1px solid #9D50BB;
+}
+
+.login-input::placeholder {
+    color: #C7CAD1;
+}
+
+.login-input-logo {
+    color: #C7CAD1;
+}
+
+.login-login-btn {
+    width: 280px;
+    height: 40px;
+    background-size: 300% auto;
+    background-image: linear-gradient(to right, #9D50BB 0%, #854CB2 51%, #6E48AA 100%);
+    outline: 0;
+    border: 0;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 17px;
+    margin-top: 1em;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.login-login-btn:hover {
+    background-position: right center;
+    box-shadow: 0px 10px 5px 0px #000000;
+}
+
+.login-login-btn:focus {
+    outline: 0;
+}
+
+.login-register-btn {
+    display: block;
+    color: #606E81;
+    text-align: center;
+    margin-top: 1em;
+    transition: all 0.5s;
+}
+
+.login-register-btn:hover {
+    text-decoration: none;
+    color: #606E81;
+    transform: scale(1.1);
+}
