@@ -79,6 +79,15 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
+	public function updateListItemTime()
+	{
+		$data = $this->getPostData();
+		if(isset($data))
+		{
+			$this->dashboard->updateListItemTime($data['id'], $data['value']);
+		}
+	}
+
 	public function deleteListItem()
 	{
 		$data = $this->getPostData();

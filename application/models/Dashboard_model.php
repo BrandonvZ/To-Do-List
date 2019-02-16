@@ -81,6 +81,13 @@ class Dashboard_model extends CI_Model {
         $this->db->update('items');
     }
 
+    public function updateListItemTime($id, $value)
+    {
+        $this->db->set('duration', $value);
+        $this->db->where('id', $id);
+        $this->db->update('items');
+    }
+
     public function deleteListItem($id)
     {
         $this->db->where('id', $id);

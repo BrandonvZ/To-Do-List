@@ -3,10 +3,25 @@ var app = angular.module('myToDo', []);
 
 app.controller('DashboardController', function($scope, $http) {
 
+    $scope.reverseFilter = [];
+    $scope.typeFilter = [];
     $scope.lists = [];
+
+    $scope.filterDone = function(index){
+        $scope.reverseFilter[index] = !$scope.reverseFilter[index];
+        $scope.typeFilter[index] = 'done';
+    }
+
+    $scope.filterTime = function(index){
+        $scope.reverseFilter[index] = !$scope.reverseFilter[index];
+        $scope.typeFilter[index] = 'duration';
+    }
 
     $scope.getLists = function(){
         $scope.lists = [];
+        $scope.reverseFilter = [];
+        $scope.typeFilter = [];
+
         var req = {
             method : "GET",
             url: baseUrl + "Dashboard/getLists",
@@ -151,6 +166,7 @@ app.controller('DashboardController', function($scope, $http) {
                         'id' : response.data.id,
                         'name' : 'Item Name',
                         'done' : 0,
+                        'duration' : 0,
                         'list_id' : listId
                     };
                     $scope.lists[i].content.push(item);
@@ -185,6 +201,39 @@ app.controller('DashboardController', function($scope, $http) {
                         var content = list.content[q];
                         if(content.id == data.id){
                             content.name = newTitle;
+                        }
+                    }
+                }
+            }
+        }, function errorCallback(response){});
+    }
+
+    $scope.updateListItemTime = function(data, elem){
+        var newTime = elem.currentTarget.innerHTML;
+
+        if(data['id'] != undefined){
+            data = data.id
+        }
+
+        var req = {
+            method: "POST",
+            url: baseUrl + "dashboard/updateListItemTime",
+            headers: {
+                "Content-Type":undefined
+            },
+            data: {
+                'id' : data,
+                'value' : newTime
+            }
+        }
+        $http(req).then(function successCallBack(response){
+            for(var i = 0; i < $scope.lists.length; i++){
+                var list = $scope.lists[i];
+                if(list.id == data.list_id){
+                    for(var q = 0; q < list.content.length; q++){
+                        var content = list.content[q];
+                        if(content.id == data.id){
+                            content.name = newTime;
                         }
                     }
                 }
