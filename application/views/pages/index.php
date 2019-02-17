@@ -73,9 +73,10 @@
 
         </article>
 
-        <article ng-if="loggedIn == true && user.role_id == 1">
+        <article ng-if="loggedIn == true && user.role_id == 1 && adminPage == false">
 
-            <button class="dashboard-logout-btn" type="button" ng-click="logout();">LOG OUT BOI</button>
+            <button class="dashboard-admin-btn" type="button" ng-click="toAdmin();">ADMIN PAGE</button>
+            <button class="dashboard-logout-btn" type="button" ng-click="logout();">LOG OUT</button>
             <a ng-show="lists.length == 0" href="#" ng-click="createList();"><i class="fas fa-plus"></i></a>
 
             <figure class="dashboard-list" ng-repeat="x in lists track by $index">
@@ -97,6 +98,25 @@
                     </li>
 
                     <li class="dashboard-add-item-btn" ng-click="createListItem(x.id)" contenteditable="false"><i class="fas fa-plus"></i></li>
+                </ul>
+            </figure>
+
+        </article>
+
+        <article ng-if="loggedIn == true && user.role_id == 1 && adminPage == true">
+
+            <button class="dashboard-admin-btn" type="button" ng-click="toDashboard();">DASHBOARD</button>
+            <button class="dashboard-logout-btn" type="button" ng-click="logout();">LOG OUT</button>
+
+            <figure class="admin-list">
+                <ul class="admin-user-container">
+                    <li class="admin-user-upper-content">
+                        <p>All Users</p>
+                    </li>
+
+                    <li class="admin-user-middle-content" ng-repeat="x in users">
+                        <p class="admin-user-item" ng-bind=x.username></p>
+                    </li>
                 </ul>
             </figure>
 

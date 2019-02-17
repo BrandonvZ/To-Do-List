@@ -127,6 +127,13 @@ class Login extends CI_Controller {
 		}
 	}
 
+	// this function will get all users
+	public function getUsers()
+	{
+		// converts array to json
+		echo json_encode($this->login->getUsers());
+	}
+
 	// this function will get all data from angular HTTP
 	public function getPostData()
 	{

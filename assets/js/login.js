@@ -3,12 +3,15 @@ app.controller('LoginController', function($scope, $http) {
     // show page based on booleans
     $scope.loggedIn = false;
     $scope.registerIn = false;
+    $scope.adminPage = false;
 
     // preset variables
     $scope.login = {};
     $scope.register = {};
 
     $scope.user = {};
+
+    $scope.users = [];
 
     // this will check if the user still has a session
     var req = {
@@ -58,6 +61,20 @@ app.controller('LoginController', function($scope, $http) {
         }, function errorCallback(response){});
     }
 
+    // this function will get all users and set it to the $scope.users variable
+    $scope.getUsers = function(){
+        var req = {
+            method : "GET",
+            url: baseUrl + "Login/getUsers",
+            headers : {
+                "Content-Type" : undefined
+            }
+        }
+        $http(req).then(function successCallBack(response){
+            $scope.users = response.data;
+        }, function errorCallback(response){});
+    }
+
     // if the user presses the logout button, will log the user out and sends user back to login page
     $scope.logout = function(){
         var req = {
@@ -71,6 +88,19 @@ app.controller('LoginController', function($scope, $http) {
             // if the session has been unset
             $scope.loggedIn = false;
         }, function errorCallback(response){});
+    }
+
+    // if the user is an admin and presses the ADMIN PAGE button, will enable admin page and disable dashboard page
+    $scope.toAdmin = function(){
+        $scope.adminPage = true;
+
+        // getUsers function will be called to collect every user in the 'users' table
+        $scope.getUsers();
+    }
+
+    // if the user is an admin and presses the DASHBOARD button, will enable dashboard page and disable admin page
+    $scope.toDashboard = function(){
+        $scope.adminPage = false;
     }
 
     // if the user presses the register here button, will enable the register page and disable the login page

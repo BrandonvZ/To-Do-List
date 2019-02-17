@@ -42,4 +42,15 @@ class Login_model extends CI_Model {
         $this->db->update('users');
     }
 
+    // this function will get all users from 'users' table
+    public function getUsers()
+    {
+        $this->db->select('*');
+        $this->db->from('users');
+
+        // get the user and return all users
+        $query = $this->db->get();
+        return $query->result();
+    }
+
 }
