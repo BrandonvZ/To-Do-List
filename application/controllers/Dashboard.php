@@ -29,6 +29,23 @@ class Dashboard extends CI_Controller {
 		echo json_encode($lists);
 	}
 
+	public function showUserList()
+	{
+		$data = $this->getPostData();
+		if(isset($data['id']))
+		{
+			$lists = (array)$this->dashboard->getLists($data['id']);
+			for($i = 0; $i < count($lists); $i++)
+			{
+				$list = (array)$lists[$i];
+				$list['content'] = $this->dashboard->getItems($list['id']);
+				$lists[$i] = $list;
+			}
+			echo json_encode($lists);
+		}
+
+	}
+
 	public function createList()
 	{
 		echo json_encode($this->dashboard->createList($_SESSION['user']['id']));

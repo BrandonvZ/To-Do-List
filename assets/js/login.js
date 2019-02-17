@@ -98,9 +98,60 @@ app.controller('LoginController', function($scope, $http) {
         $scope.getUsers();
     }
 
+    // if the admin checks/unchecks a checkbox
+    $scope.adminToggle = function(role){
+        if(role.role_id == 1){
+            role.role_id = 2;
+        } else {
+            role.role_id = 1;
+        }
+
+        var req = {
+            method: "POST",
+            url: baseUrl + "Login/adminToggle",
+            headers: {
+                "Content-Type" : undefined
+            },
+            data: {
+                'id' : role.id,
+                'role_id' : role.role_id
+            }
+        }
+        $http(req).then(function successCallBack(response){
+            if($scope.user.id == role.id){
+                if(role.role_id == 2){
+                    $scope.toDashboard();
+                    $scope.user.role_id = role.role_id;
+                }
+            }
+        }, function errorCallback(response){});
+    }
+
+    $scope.showUserList = function(id){
+        $scope.lists = [];
+        $scope.reverseFilter = [];
+        $scope.typeFilter = [];
+
+        var req = {
+            method : "POST",
+            url: baseUrl + "Dashboard/showUserList",
+            headers : {
+                "Content-Type" : undefined
+            },
+            data : {
+                'id' : id
+            }
+        }
+        $http(req).then(function successCallBack(response){
+            $scope.lists = response.data;
+            $scope.adminPage = false;
+        }, function errorCallback(response){});
+    }
+
     // if the user is an admin and presses the DASHBOARD button, will enable dashboard page and disable admin page
     $scope.toDashboard = function(){
         $scope.adminPage = false;
+        $scope.showUserList($scope.user.id);
     }
 
     // if the user presses the register here button, will enable the register page and disable the login page

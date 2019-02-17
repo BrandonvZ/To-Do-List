@@ -53,4 +53,11 @@ class Login_model extends CI_Model {
         return $query->result();
     }
 
+    // this function will toggle the role_id in 'users' table
+    public function adminToggle($id, $role_id){
+        $this->db->set('role_id', $role_id);
+        $this->db->where('id', $id);
+        $this->db->update('users');
+    }
+
 }

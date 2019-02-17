@@ -134,6 +134,21 @@ class Login extends CI_Controller {
 		echo json_encode($this->login->getUsers());
 	}
 
+	// this function will make the user an admin or an user
+	public function adminToggle()
+	{
+		$data = $this->getPostData();
+		if(isset($data['id']))
+		{
+			$this->login->adminToggle($data['id'], $data['role_id']);
+
+			if($_SESSION['user']['id'] == $data['id'])
+			{
+				$_SESSION['user']['role_id'] = $data['role_id'];
+			}
+		}
+	}
+
 	// this function will get all data from angular HTTP
 	public function getPostData()
 	{
