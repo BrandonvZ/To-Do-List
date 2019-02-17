@@ -114,6 +114,21 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
+	public function deleteUser()
+	{
+		$data = $this->getPostData();
+		if(isset($data))
+		{
+			$this->dashboard->deleteUser($data['id']);
+			$lists = (array)$this->dashboard->getLists($data['id']);
+			for($i = 0; $i < count($lists); $i++)
+			{
+				$list = (array)$lists[$i];
+				$this->dashboard->deleteList($list['id']);
+			}
+		}
+	}
+
 	// this function will get all data from angular HTTP
 	public function getPostData()
 	{

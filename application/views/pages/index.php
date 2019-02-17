@@ -83,12 +83,13 @@
                 <ul class="admin-user-container">
                     <li class="admin-user-upper-content">
                         <p>All Users</p>
+                        <p class="admin-admin-text">Admin?</p>
                     </li>
 
                     <li class="admin-user-middle-content" ng-repeat="x in users">
                         <input class="admin-user-checkbox" type="checkbox" ng-click="adminToggle(x);" ng-if="x.role_id == 1" checked>
                         <input class="admin-user-checkbox" type="checkbox" ng-click="adminToggle(x);" ng-if="x.role_id == 2">
-                        <p class="admin-user-username" ng-bind="x.username" ng-click="showUserList(x.id);"></p>
+                        <p class="admin-user-username" ng-bind="x.username" ng-click="showUserList(x.id);"></p><i class="admin-user-delete-btn far fa-trash-alt" ng-click="deleteUser(x.id);"></i>
                     </li>
                 </ul>
             </figure>

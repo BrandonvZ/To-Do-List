@@ -148,6 +148,26 @@ app.controller('LoginController', function($scope, $http) {
         }, function errorCallback(response){});
     }
 
+    $scope.deleteUser = function(id){
+        var req = {
+            method: "POST",
+            url: baseUrl + "Dashboard/deleteUser",
+            headers: {
+                "Content-Type":undefined
+            },
+            data: {
+                'id': id
+            }
+        }
+        $http(req).then(function successCallback(response){
+            for(var i = 0; i < $scope.users.length; i++){
+                if($scope.users[i].id == id){
+                    $scope.users.splice(i, 1);
+                }
+            }
+        }, function errorCallback(response){});
+    }
+
     // if the user is an admin and presses the DASHBOARD button, will enable dashboard page and disable admin page
     $scope.toDashboard = function(){
         $scope.adminPage = false;

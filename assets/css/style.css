@@ -3,7 +3,7 @@
     1. General CSS
     2. Login Screen
     3. Dashboard Screen
-    4. Media Queries
+    4. Admin Screen
 
 */
 
@@ -306,7 +306,7 @@ body {
     color: green;
 }
 
-/* 4. Admin Page */
+/* 4. Admin Screen */
 
 .admin-list {
     width: 450px;
@@ -335,8 +335,24 @@ body {
     list-style: none;
 }
 
+.admin-admin-text {
+    font-size: 16px;
+    position: absolute;
+    top: 20px;
+    right: 23px;
+}
+
 .admin-user-checkbox {
-    
+    position: relative;
+    left: 380px;
+}
+
+.admin-user-delete-btn {
+    position: absolute;
+    right: 15px;
+    margin-top: 2px;
+    cursor: pointer;
+    color: #540E7A;
 }
 
 .admin-user-middle-content {
