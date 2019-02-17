@@ -137,13 +137,19 @@ class Login extends CI_Controller {
 	// this function will make the user an admin or an user
 	public function adminToggle()
 	{
+		// sets inputted data to variable $data
 		$data = $this->getPostData();
+
+		// if the $data is set
 		if(isset($data['id']))
 		{
+			// sends $data['id'] and $data['role_id'] to adminToggle function in Login_model (model)
 			$this->login->adminToggle($data['id'], $data['role_id']);
 
+			// if the session id is equal to the id that got sent
 			if($_SESSION['user']['id'] == $data['id'])
 			{
+				// sets session role_id to the $data['role_id']
 				$_SESSION['user']['role_id'] = $data['role_id'];
 			}
 		}

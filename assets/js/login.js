@@ -1,6 +1,6 @@
 app.controller('LoginController', function($scope, $http) {
 
-    // show page based on booleans
+    // page control
     $scope.loggedIn = false;
     $scope.registerIn = false;
     $scope.adminPage = false;
@@ -8,9 +8,9 @@ app.controller('LoginController', function($scope, $http) {
     // preset variables
     $scope.login = {};
     $scope.register = {};
-
     $scope.user = {};
 
+    // preset variables
     $scope.users = [];
 
     // this will check if the user still has a session
@@ -27,6 +27,8 @@ app.controller('LoginController', function($scope, $http) {
             $scope.user = response.data;
             $scope.loggedIn = true;
             $scope.registerIn = false;
+
+            // will get all lists for the user
             $scope.getLists();
             document.title = "To-Do-List | Dashboard";
         } else {
@@ -53,6 +55,8 @@ app.controller('LoginController', function($scope, $http) {
             if(response.data != "false"){
                 $scope.user = response.data;
                 $scope.loggedIn = true;
+
+                // will get all lists for the user
                 $scope.getLists();
                 document.title = "To-Do-List | Dashboard";
             } else {
@@ -118,15 +122,22 @@ app.controller('LoginController', function($scope, $http) {
             }
         }
         $http(req).then(function successCallBack(response){
+            // if the user role id is equal to the role id
             if($scope.user.id == role.id){
+
+                // if the role_id is 2 ('User' role)
                 if(role.role_id == 2){
+
+                    // calls the toDashboard function
                     $scope.toDashboard();
+
                     $scope.user.role_id = role.role_id;
                 }
             }
         }, function errorCallback(response){});
     }
 
+    // this function will show all users on the admin page
     $scope.showUserList = function(id){
         $scope.lists = [];
         $scope.reverseFilter = [];
@@ -148,6 +159,7 @@ app.controller('LoginController', function($scope, $http) {
         }, function errorCallback(response){});
     }
 
+    // this function will delete an user if an admin clicked on the trash bin on the admin page
     $scope.deleteUser = function(id){
         var req = {
             method: "POST",
@@ -160,6 +172,7 @@ app.controller('LoginController', function($scope, $http) {
             }
         }
         $http(req).then(function successCallback(response){
+            // loop through all users
             for(var i = 0; i < $scope.users.length; i++){
                 if($scope.users[i].id == id){
                     $scope.users.splice(i, 1);
@@ -171,6 +184,8 @@ app.controller('LoginController', function($scope, $http) {
     // if the user is an admin and presses the DASHBOARD button, will enable dashboard page and disable admin page
     $scope.toDashboard = function(){
         $scope.adminPage = false;
+
+        // shows all lists for the admin it self
         $scope.showUserList($scope.user.id);
     }
 
@@ -199,6 +214,8 @@ app.controller('LoginController', function($scope, $http) {
                 $scope.user = response.data;
                 $scope.loggedIn = true;
                 $scope.registerIn = false;
+
+                // will get all lists for the user
                 $scope.getLists();
                 document.title = "To-Do-List | Dashboard";
             } else {
